@@ -1,0 +1,11 @@
+edition = "2021"
+
+max_width = 100
+
+format_strings = true
+
+remove_nested_parens = true
+
+reorder_imports = true
+
+use_small_heuristics = "Max"
