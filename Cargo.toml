@@ -6,4 +6,4 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-comfy = "0.3.1"
+comfy = { git = "https://github.com/Sigmoidle/comfy_touch_support.git" }

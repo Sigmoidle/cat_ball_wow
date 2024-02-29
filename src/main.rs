@@ -8,7 +8,7 @@ const PAW_FRICTION: f32 = -0.2;
 const BALL_RADIUS: f32 = 1.0;
 const BASE_BALL_SPEED: f32 = 0.1;
 
-comfy_game!("My Game!", GameState);
+comfy_game!("Cat Ball Wow", GameState);
 
 // Define a global state object
 pub struct GameState {
@@ -81,6 +81,7 @@ impl GameLoop for GameState {
             TextAlign::Center,
             60.0,
             self.font,
+            50,
         );
         draw_text_pro_experimental(
             simple_styled_text(&format!("BEST SCORE: {}", self.best_score)),
@@ -89,6 +90,7 @@ impl GameLoop for GameState {
             TextAlign::Center,
             60.0,
             self.font,
+            50,
         );
 
         // Ball
