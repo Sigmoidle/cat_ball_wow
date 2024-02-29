@@ -74,6 +74,7 @@ impl GameLoop for GameState {
             TextAlign::Center,
             60.0,
             self.font,
+            50,
         );
         draw_text_pro_experimental(
             simple_styled_text(&format!("BEST SCORE: {}", self.best_score)),
@@ -82,6 +83,7 @@ impl GameLoop for GameState {
             TextAlign::Center,
             60.0,
             self.font,
+            50,
         );
 
         // Ball
