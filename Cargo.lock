@@ -108,12 +108,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc7eb209b1518d6bb87b283c20095f5228ecda460da70b44f0802523dea6da04"
 
 [[package]]
-name = "android-tzdata"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e999941b234f3131b00bc13c22d06e8c5ff726d1b6318ac7eb276997bbb4fef0"
-
-[[package]]
 name = "android_system_properties"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -352,20 +346,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fd16c4719339c4530435d38e511904438d07cce7950afa3718a84ac36c10e89e"
 
 [[package]]
-name = "chrono"
-version = "0.4.34"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5bc015644b92d5890fab7489e49d21f879d5c990186827d42ec511919404f38b"
-dependencies = [
- "android-tzdata",
- "iana-time-zone",
- "js-sys",
- "num-traits",
- "wasm-bindgen",
- "windows-targets 0.52.3",
-]
-
-[[package]]
 name = "clang-sys"
 version = "1.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -411,7 +391,8 @@ dependencies = [
 [[package]]
 name = "comfy"
 version = "0.3.1"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#052307ed4e9048bd3004a0eb3f1be51ab3fa1292"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "57fc35c8141d7b0aa957738b6bd61698d8049f6e5a32c1c50e67f093048a4603"
 dependencies = [
  "comfy-core",
  "comfy-wgpu",
@@ -431,7 +412,8 @@ dependencies = [
 [[package]]
 name = "comfy-core"
 version = "0.3.0"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#052307ed4e9048bd3004a0eb3f1be51ab3fa1292"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fe0a485d5ce3e407e90232a3c874e7b0462fe8b174895dd0140251136034acb9"
 dependencies = [
  "ahash",
  "anyhow",
@@ -442,7 +424,6 @@ dependencies = [
  "bitflags 2.4.2",
  "bytemuck",
  "cfg-if",
- "chrono",
  "comfy-color-backtrace",
  "comfy_include_dir",
  "console_error_panic_hook",
@@ -489,14 +470,14 @@ dependencies = [
 [[package]]
 name = "comfy-wgpu"
 version = "0.3.0"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#052307ed4e9048bd3004a0eb3f1be51ab3fa1292"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bda92d127a9c343f804a93bd9a4bbee696167c8fe3520472d700e886c60b0191"
 dependencies = [
  "bytemuck",
  "comfy-core",
  "egui",
  "egui-wgpu",
  "egui-winit",
- "futures-intrusive",
  "image",
  "naga",
  "web-sys",
@@ -985,17 +966,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dfc6580bb841c5a68e9ef15c77ccc837b40a7504914d52e47b8b0e9bbda25a1d"
 
 [[package]]
-name = "futures-intrusive"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1d930c203dd0b6ff06e0201a4a2fe9149b43c684fd4420555b26d21b1a02956f"
-dependencies = [
- "futures-core",
- "lock_api",
- "parking_lot",
-]
-
-[[package]]
 name = "futures-sink"
 version = "0.3.30"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1215,29 +1185,6 @@ name = "humantime"
 version = "2.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9a3a5bfb195931eeb336b2a7b4d761daec841b97f947d34394601737a7bba5e4"
-
-[[package]]
-name = "iana-time-zone"
-version = "0.1.60"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e7ffbb5a1b541ea2561f8c41c087286cc091e21e556a4f09a8f6cbf17b69b141"
-dependencies = [
- "android_system_properties",
- "core-foundation-sys",
- "iana-time-zone-haiku",
- "js-sys",
- "wasm-bindgen",
- "windows-core",
-]
-
-[[package]]
-name = "iana-time-zone-haiku"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f31827a206f56af32e590ba56d5d2d085f558508192593743f16b2306495269f"
-dependencies = [
- "cc",
-]
 
 [[package]]
 name = "image"

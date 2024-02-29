@@ -14,10 +14,8 @@ comfy_game!("Cat Ball Wow", GameState);
 pub struct GameState {
     pub left_paw_position: Vec2,
     pub left_paw_velocity: Vec2,
-    pub left_paw_acceleration: Vec2,
     pub right_paw_position: Vec2,
     pub right_paw_velocity: Vec2,
-    pub right_paw_acceleration: Vec2,
     pub ball_position: Vec2,
     pub ball_movement_vec: Vec2,
     pub score: u32,
@@ -39,27 +37,22 @@ impl GameLoop for GameState {
             ("paw_right", "paw_right.png"),
             ("ball", "ball.png"),
         ];
-        pub static ASSET_DIR: include_dir::Dir<'_> =
-            include_dir::include_dir!("$CARGO_MANIFEST_DIR/assets");
+        pub static ASSET_DIR: include_dir::Dir<'_> = include_dir::include_dir!("$CARGO_MANIFEST_DIR/assets");
         init_asset_source(&ASSET_DIR, |path| {
             format!(concat!(env!("CARGO_MANIFEST_DIR"), "/assets/{}"), path)
         });
 
-        load_multiple_textures(
-            textures.iter().map(|(a, b)| (a.to_string(), b.to_string())).collect_vec(),
-        );
+        load_multiple_textures(textures.iter().map(|(a, b)| (a.to_string(), b.to_string())).collect_vec());
 
         Self {
             left_paw_position: Vec2 { x: -PAW_WIDTH, y: 0.0 },
             left_paw_velocity: Vec2::ZERO,
-            left_paw_acceleration: Vec2::ZERO,
             right_paw_position: Vec2 { x: PAW_WIDTH, y: 0.0 },
             right_paw_velocity: Vec2::ZERO,
-            right_paw_acceleration: Vec2::ZERO,
             ball_position: Vec2 { x: 0.0, y: 0.0 },
             ball_movement_vec: Vec2 { x: BASE_BALL_SPEED, y: BASE_BALL_SPEED },
-            score: 1,
-            best_score: 1,
+            score: 0,
+            best_score: 0,
             font: load_font_from_bytes(include_bytes!("../fonts/Orbitron-Bold.ttf")),
         }
     }
@@ -70,7 +63,7 @@ impl GameLoop for GameState {
         let screen_position = screen_to_world(Vec2 { x: screen_width(), y: screen_height() });
         let score_position = screen_to_world(Vec2 { x: screen_width() / 2.0, y: 40.0 });
         let best_score_position = screen_to_world(Vec2 { x: screen_width() / 2.0, y: 120.0 });
-        let ball_speed = BASE_BALL_SPEED + BASE_BALL_SPEED * (self.score as f32 / 40.0);
+        let ball_speed = BASE_BALL_SPEED + BASE_BALL_SPEED * ((self.score + 1) as f32 / 40.0);
 
         draw_sprite(texture_id("background"), Vec2::ZERO, WHITE, 1, screen_position * 2.0);
 
@@ -81,7 +74,6 @@ impl GameLoop for GameState {
             TextAlign::Center,
             60.0,
             self.font,
-            50,
         );
         draw_text_pro_experimental(
             simple_styled_text(&format!("BEST SCORE: {}", self.best_score)),
@@ -90,7 +82,6 @@ impl GameLoop for GameState {
             TextAlign::Center,
             60.0,
             self.font,
-            50,
         );
 
         // Ball
@@ -118,7 +109,9 @@ impl GameLoop for GameState {
         // Ball - Check end-game
         if self.ball_position.y < screen_position.y - BALL_RADIUS {
             self.ball_position = Vec2::ZERO;
-            self.score = 1
+            self.score = 0;
+            self.ball_movement_vec.x = BASE_BALL_SPEED;
+            self.ball_movement_vec.y = BASE_BALL_SPEED;
         }
         self.ball_position += self.ball_movement_vec;
         if self.score > self.best_score {
@@ -127,40 +120,33 @@ impl GameLoop for GameState {
         draw_sprite(texture_id("ball"), self.ball_position, WHITE, 6, Vec2::ONE * 2.5);
 
         // Paws
-        self.right_paw_acceleration = Vec2::ZERO;
-        self.left_paw_acceleration = Vec2::ZERO;
-        if is_key_down(KeyCode::Left) {
-            self.right_paw_acceleration.x = -PAW_ACCELERATION;
+        let mut right_paw_acceleration = Vec2::ZERO;
+        let mut left_paw_acceleration = Vec2::ZERO;
+        if is_key_down(KeyCode::J) {
+            right_paw_acceleration.x = -PAW_ACCELERATION;
         }
-        if is_key_down(KeyCode::Right) {
-            self.right_paw_acceleration.x = PAW_ACCELERATION;
+        if is_key_down(KeyCode::L) {
+            right_paw_acceleration.x = PAW_ACCELERATION;
         }
         if is_key_down(KeyCode::A) {
-            self.left_paw_acceleration.x = -PAW_ACCELERATION;
+            left_paw_acceleration.x = -PAW_ACCELERATION;
         }
         if is_key_down(KeyCode::D) {
-            self.left_paw_acceleration.x = PAW_ACCELERATION;
+            left_paw_acceleration.x = PAW_ACCELERATION;
         }
 
-        self.right_paw_acceleration.x += self.right_paw_velocity.x * PAW_FRICTION;
-        self.left_paw_acceleration.x += self.left_paw_velocity.x * PAW_FRICTION;
-        self.right_paw_velocity += self.right_paw_acceleration;
-        self.left_paw_velocity += self.left_paw_acceleration;
-        self.right_paw_position += self.right_paw_velocity + 0.5 * self.right_paw_acceleration;
-        self.left_paw_position += self.left_paw_velocity + 0.5 * self.left_paw_acceleration;
+        right_paw_acceleration.x += self.right_paw_velocity.x * PAW_FRICTION;
+        left_paw_acceleration.x += self.left_paw_velocity.x * PAW_FRICTION;
+        self.right_paw_velocity += right_paw_acceleration;
+        self.left_paw_velocity += left_paw_acceleration;
+        self.right_paw_position += self.right_paw_velocity + 0.5 * right_paw_acceleration;
+        self.left_paw_position += self.left_paw_velocity + 0.5 * left_paw_acceleration;
 
-        if self.right_paw_position.x > screen_position.x - (PAW_WIDTH / 2.0) {
-            self.right_paw_position.x = screen_position.x - (PAW_WIDTH / 2.0)
-        }
-        if self.right_paw_position.x < (PAW_WIDTH / 2.0) {
-            self.right_paw_position.x = PAW_WIDTH / 2.0
-        }
-        if self.left_paw_position.x < -screen_position.x + (PAW_WIDTH / 2.0) {
-            self.left_paw_position.x = -screen_position.x + (PAW_WIDTH / 2.0)
-        }
-        if self.left_paw_position.x > -(PAW_WIDTH / 2.0) {
-            self.left_paw_position.x = -(PAW_WIDTH / 2.0)
-        }
+        self.right_paw_position.x =
+            self.right_paw_position.x.clamp(PAW_WIDTH / 2.0, screen_position.x - (PAW_WIDTH / 2.0));
+        self.left_paw_position.x =
+            self.left_paw_position.x.clamp(-screen_position.x + (PAW_WIDTH / 2.0), -(PAW_WIDTH / 2.0));
+
         self.right_paw_position.y = screen_position.y + (PAW_HEIGHT / 2.0);
         self.left_paw_position.y = screen_position.y + (PAW_HEIGHT / 2.0);
 
