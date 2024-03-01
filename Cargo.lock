@@ -418,7 +418,7 @@ dependencies = [
 [[package]]
 name = "comfy"
 version = "0.3.1"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#3d09e970727384c7415da7ab386582f980d4fa73"
+source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#05dfbf46c6d37cfa8f878818a042d19a600eb606"
 dependencies = [
  "comfy-core",
  "comfy-wgpu",
@@ -438,7 +438,7 @@ dependencies = [
 [[package]]
 name = "comfy-core"
 version = "0.3.0"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#3d09e970727384c7415da7ab386582f980d4fa73"
+source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#05dfbf46c6d37cfa8f878818a042d19a600eb606"
 dependencies = [
  "ahash",
  "anyhow",
@@ -496,7 +496,7 @@ dependencies = [
 [[package]]
 name = "comfy-wgpu"
 version = "0.3.0"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#3d09e970727384c7415da7ab386582f980d4fa73"
+source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#05dfbf46c6d37cfa8f878818a042d19a600eb606"
 dependencies = [
  "bytemuck",
  "comfy-core",
