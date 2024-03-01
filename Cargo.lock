@@ -208,7 +208,7 @@ dependencies = [
  "bitflags 2.4.2",
  "cexpr",
  "clang-sys",
- "itertools 0.12.1",
+ "itertools",
  "lazy_static",
  "lazycell",
  "proc-macro2",
@@ -418,7 +418,7 @@ dependencies = [
 [[package]]
 name = "comfy"
 version = "0.3.1"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#91ca400176072acef3becabe40be0e665032f991"
+source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#3d09e970727384c7415da7ab386582f980d4fa73"
 dependencies = [
  "comfy-core",
  "comfy-wgpu",
@@ -438,7 +438,7 @@ dependencies = [
 [[package]]
 name = "comfy-core"
 version = "0.3.0"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#91ca400176072acef3becabe40be0e665032f991"
+source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#3d09e970727384c7415da7ab386582f980d4fa73"
 dependencies = [
  "ahash",
  "anyhow",
@@ -469,7 +469,7 @@ dependencies = [
  "image",
  "inline_tweak",
  "instant",
- "itertools 0.11.0",
+ "itertools",
  "kira",
  "lazy_static",
  "log",
@@ -496,7 +496,7 @@ dependencies = [
 [[package]]
 name = "comfy-wgpu"
 version = "0.3.0"
-source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#91ca400176072acef3becabe40be0e665032f991"
+source = "git+https://github.com/Sigmoidle/comfy_touch_support.git#3d09e970727384c7415da7ab386582f980d4fa73"
 dependencies = [
  "bytemuck",
  "comfy-core",
@@ -1269,9 +1269,9 @@ dependencies = [
 
 [[package]]
 name = "indexmap"
-version = "2.2.4"
+version = "2.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "967d6dd42f16dbf0eb8040cb9e477933562684d3918f7d253f2ff9087fb3e7a3"
+checksum = "7b0b929d511467233429c45a44ac1dcaa21ba0f5ba11e4879e6ed28ddb4f9df4"
 dependencies = [
  "equivalent",
  "hashbrown 0.14.3",
@@ -1328,15 +1328,6 @@ dependencies = [
  "hermit-abi 0.3.9",
  "libc",
  "windows-sys 0.52.0",
-]
-
-[[package]]
-name = "itertools"
-version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1c173a5686ce8bfa551b3563d0c2170bf24ca44da99c7ca4bfdab5418c3fe57"
-dependencies = [
- "either",
 ]
 
 [[package]]

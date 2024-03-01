@@ -63,6 +63,7 @@ impl GameLoop for GameState {
         let screen_position = screen_to_world(Vec2 { x: screen_width(), y: screen_height() });
         let score_position = screen_to_world(Vec2 { x: screen_width() / 2.0, y: 40.0 });
         let best_score_position = screen_to_world(Vec2 { x: screen_width() / 2.0, y: 120.0 });
+        let touch_position = screen_to_world(Vec2 { x: screen_width() / 2.0, y: 280.0 });
         let ball_speed = BASE_BALL_SPEED + BASE_BALL_SPEED * ((self.score + 1) as f32 / 40.0);
 
         draw_sprite(texture_id("background"), Vec2::ZERO, WHITE, 1, screen_position * 2.0);
@@ -82,6 +83,23 @@ impl GameLoop for GameState {
             BLACK,
             TextAlign::Center,
             60.0,
+            self.font,
+            50,
+        );
+
+        let touch_location = screen_to_world(get_touch_location());
+        let touch_id = get_touch_id();
+        let touch_phase = get_touch_phase();
+
+        draw_text_pro_experimental(
+            simple_styled_text(&format!(
+                "Touch Location: x:{} y:{}\nid: {}\nphase: {:?}",
+                touch_location.x, touch_location.y, touch_id, touch_phase
+            )),
+            touch_position,
+            BLACK,
+            TextAlign::Center,
+            50.0,
             self.font,
             50,
         );
@@ -135,6 +153,19 @@ impl GameLoop for GameState {
         }
         if is_key_down(KeyCode::D) {
             left_paw_acceleration.x = PAW_ACCELERATION;
+        }
+        // Paws touch
+        if touch_location.x > self.right_paw_position.x {
+            right_paw_acceleration.x = PAW_ACCELERATION;
+        }
+        if touch_location.x < self.right_paw_position.x {
+            right_paw_acceleration.x = -PAW_ACCELERATION;
+        }
+        if touch_location.x > self.left_paw_position.x {
+            left_paw_acceleration.x = PAW_ACCELERATION;
+        }
+        if touch_location.x < self.left_paw_position.x {
+            left_paw_acceleration.x = -PAW_ACCELERATION;
         }
 
         right_paw_acceleration.x += self.right_paw_velocity.x * PAW_FRICTION;
