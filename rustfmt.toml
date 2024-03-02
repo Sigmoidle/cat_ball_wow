@@ -2,8 +2,6 @@ edition = "2021"
 
 max_width = 110
 
-format_strings = true
-
 remove_nested_parens = true
 
 reorder_imports = true
